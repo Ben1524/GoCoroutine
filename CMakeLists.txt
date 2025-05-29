@@ -19,10 +19,12 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 
 add_executable(GoCoroutine main.cpp
-        common/anys.cpp
         common/anys.h
         utils/utils.h
-        concurrence/spinlock.h)
+        concurrence/spinlock.h
+        common/clock.h
+        utils/macro.h
+        test/test_clock.cpp)
 
 
 # 定义一个函数，自动帮test添加lib
@@ -34,6 +36,7 @@ endfunction()
 
 if (TEST)
     add_test(test_anys test/test_anys.cpp)
+    add_test(test_clock test/test_clock.cpp)
 endif (TEST)
 
 target_link_libraries(GoCoroutine GTest::gtest GTest::gtest_main)
