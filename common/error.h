@@ -2,8 +2,8 @@
 // Created by cxk_zjq on 25-5-29.
 //
 
-#ifndef ERROR_H
-#define ERROR_H
+#ifndef MY_ERROR_H
+#define MY_ERROR_H
 #pragma once
 #include <system_error>
 #include <string>
@@ -64,4 +64,4 @@ namespace cxk
 
 
 
-#endif //ERROR_H
+#endif

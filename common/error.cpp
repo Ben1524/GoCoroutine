@@ -8,14 +8,24 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 namespace cxk
 {
-
 // 定义协程专用日志器（建议在项目初始化时创建）
-static std::shared_ptr<spdlog::logger> g_co_logger = []() {
-    auto logger = spdlog::stdout_color_mt("co_logger");
-    logger->set_level(spdlog::level::level_enum::debug); // 设置日志级别
-    return logger;
-}();
+    static std::shared_ptr<spdlog::logger> g_co_logger = []() {
+        auto logger = spdlog::stdout_color_mt("co_logger");
 
+        // 设置包含线程ID的基本格式
+        logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] [%t] %v");
+
+        logger->set_level(spdlog::level::level_enum::debug); // 设置日志级别
+        return logger;
+    }();
+
+// 定义带位置信息的日志宏
+#define CO_LOG_TRACE(...) g_co_logger->trace("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
+#define CO_LOG_DEBUG(...) g_co_logger->debug("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
+#define CO_LOG_INFO(...)  g_co_logger->info("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
+#define CO_LOG_WARN(...)  g_co_logger->warn("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
+#define CO_LOG_ERROR(...) g_co_logger->error("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
+#define CO_LOG_CRITICAL(...) g_co_logger->critical("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
 
 const char* co_error_category::name() const throw()
 {
@@ -76,7 +86,7 @@ std::error_code MakeCoErrorCode(eCoErrorCode code)
 void ThrowError(eCoErrorCode code)
 {
     auto message = GetCoErrorCategory().message((int)code);
-    g_co_logger->error("throw exception {}:{}", (int)code, message);
+    CO_LOG_ERROR("throw exception {}:{}", (int)code, message);
     if (std::uncaught_exception()) return ;
     throw std::system_error(MakeCoErrorCode(code));
 }
@@ -89,9 +99,9 @@ co_exception::co_exception(std::string const& errMsg)
 
 void ThrowException(std::string const& errMsg)
 {
-    g_co_logger->error("throw co_exception: {}", errMsg);
+    CO_LOG_ERROR("throw exception: {}", errMsg);
     if (std::uncaught_exception()) return ;
     throw co_exception(errMsg);
 }
 
-} //namespace co
+} //namespace cxk
