@@ -12,7 +12,8 @@ enable_testing()
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(GTest REQUIRED)
-
+find_package(Threads REQUIRED)
+find_package(spdlog REQUIRED)
 include_directories(${CMAKE_SOURCE_DIR}/utils)
 include_directories(${CMAKE_SOURCE_DIR}/concurrence)
 include_directories(${CMAKE_SOURCE_DIR})
@@ -24,7 +25,11 @@ add_executable(GoCoroutine main.cpp
         concurrence/spinlock.h
         common/clock.h
         utils/macro.h
-        test/test_clock.cpp)
+        test/test_clock.cpp
+        common/deque.h
+        common/error.cpp
+        common/error.h
+        test/test_error.cpp)
 
 
 # 定义一个函数，自动帮test添加lib
@@ -37,6 +42,10 @@ endfunction()
 if (TEST)
     add_test(test_anys test/test_anys.cpp)
     add_test(test_clock test/test_clock.cpp)
+    add_test(test_error test/test_error.cpp)
 endif (TEST)
 
-target_link_libraries(GoCoroutine GTest::gtest GTest::gtest_main)
+target_link_libraries(GoCoroutine GTest::gtest GTest::gtest_main
+        Threads::Threads
+        spdlog::spdlog
+)

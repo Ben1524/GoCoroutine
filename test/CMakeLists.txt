@@ -6,6 +6,7 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(spdlog REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/utils)
 include_directories(${CMAKE_SOURCE_DIR}/concurrence)
@@ -30,4 +31,5 @@ if (TEST)
 
 endif (TEST)
 
-target_link_libraries(GoCoroutine GTest::gtest GTest::gtest_main)
+target_link_libraries(GoCoroutine GTest::gtest GTest::gtest_main
+        spdlog::spdlog)
