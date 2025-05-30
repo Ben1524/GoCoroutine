@@ -1,6 +1,6 @@
-//
-// Created by cxk_zjq on 25-5-29.
-//
+///
+/// Created by cxk_zjq on 25-5-29.
+///
 
 #include "error.h"
 #include "error.h"
@@ -8,18 +8,18 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 namespace cxk
 {
-// 定义协程专用日志器（建议在项目初始化时创建）
+/// 定义协程专用日志器（建议在项目初始化时创建）
     static std::shared_ptr<spdlog::logger> g_co_logger = []() {
         auto logger = spdlog::stdout_color_mt("co_logger");
 
-        // 设置包含线程ID的基本格式
+        /// 设置包含线程ID的基本格式
         logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] [%t] %v");
 
-        logger->set_level(spdlog::level::level_enum::debug); // 设置日志级别
+        logger->set_level(spdlog::level::level_enum::debug); /// 设置日志级别
         return logger;
     }();
 
-// 定义带位置信息的日志宏
+/// 定义带位置信息的日志宏
 #define CO_LOG_TRACE(...) g_co_logger->trace("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
 #define CO_LOG_DEBUG(...) g_co_logger->debug("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
 #define CO_LOG_INFO(...)  g_co_logger->info("{}:{} {}", __FILE__, __LINE__, fmt::format(__VA_ARGS__))
@@ -104,4 +104,4 @@ void ThrowException(std::string const& errMsg)
     throw co_exception(errMsg);
 }
 
-} //namespace cxk
+} ///namespace cxk

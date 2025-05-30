@@ -1,6 +1,6 @@
-//
-// Created by cxk_zjq on 25-5-29.
-//
+///
+/// Created by cxk_zjq on 25-5-29.
+///
 
 #ifndef SPINLOCK_H
 #define SPINLOCK_H
@@ -17,7 +17,7 @@ namespace cxk
  */
 struct LFLock
 {
-    // 禁止拷贝
+    /// 禁止拷贝
     LFLock(const LFLock&) = delete;
     LFLock& operator=(const LFLock&) = delete;
     std::atomic_flag flag;
@@ -44,7 +44,7 @@ struct LFLock
 
     ALWAYS_INLINE void unlock()
     {
-        flag.clear(std::memory_order_release); // 释放之后确保对下一个acquire之后的读可见，故而使用release
+        flag.clear(std::memory_order_release); /// 释放之后确保对下一个acquire之后的读可见，故而使用release
     }
 };
 
@@ -56,4 +56,4 @@ struct FakeLock {
 };
 }
 
-#endif //SPINLOCK_H
+#endif ///SPINLOCK_H

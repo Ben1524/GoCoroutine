@@ -39,7 +39,7 @@ else()
     include(FetchContent)
     FetchContent_Declare(
             googletest
-            GIT_REPOSITORY https://github.com/google/googletest.git
+            GIT_REPOSITORY https:///github.com/google/googletest.git
             GIT_TAG release-1.12.1
     )
     FetchContent_MakeAvailable(googletest)
@@ -62,6 +62,8 @@ add_library(gocoroutine_lib STATIC
         common/error.cpp
         common/error.h
         common/lock_free_ring_queue.h
+        common/thread_safe_queue.h
+        common/smart_ptr.h
 )
 
 target_link_libraries(gocoroutine_lib
@@ -89,6 +91,7 @@ if(BUILD_TESTS)
             test/test_clock.cpp
             test/test_error.cpp
             test/test_lfrqueue.cpp
+            test/test_smartptr.cpp
     )
 
     # 为每个测试文件创建单独的测试目标

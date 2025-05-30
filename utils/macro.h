@@ -1,6 +1,6 @@
-//
-// Created by cxk_zjq on 25-5-29.
-//
+///
+/// Created by cxk_zjq on 25-5-29.
+///
 
 #ifndef MACRO_H
 #define MACRO_H
@@ -16,4 +16,4 @@
 #endif
 
 
-#endif //MACRO_H
+#endif ///MACRO_H
