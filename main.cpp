@@ -10,35 +10,20 @@
 
 using namespace cxk;
 
-class SmartPtrTest : public RefObject {
-public:
-    SmartPtrTest() {
-        p = new int(0);
-        std::cout << "SmartPtrTest constructor called." << std::endl;
-        deleter_.deleter_ = Deleter([](void* ptr) {
-            if (ptr) {
-                delete static_cast<int*>(ptr);
-                std::cout << "Custom deleter called, memory freed." << std::endl;
-            }
-        });
-    }
-    virtual ~SmartPtrTest(){
-        if (p) {
-            delete p;
-            p = nullptr;
-        }
-        std::cout << "SmartPtrTest destructor called." << std::endl;
-    }
-
-    // Example method to test shared_ptr
-    void exampleMethod() {
-        std::cout << "Example method called." << std::endl;
-    }
-    int *p= new int(42); // Initialize with a value for testing
-
-};
 
 int main()
 {
+    std::shared_ptr<int> ptr= std::make_shared<int>(10);
+    std::weak_ptr<int> weakPtr = ptr;
+    std::cout << "ptr use count: " << ptr.use_count() << std::endl;
+    auto sharedPtr = weakPtr.lock();
+//    if (sharedPtr) {
+//        std::cout << "Weak pointer is valid, value: " << *sharedPtr << std::endl;
+//    } else {
+//        std::cout << "Weak pointer is expired." << std::endl;
+//    }
+//    ptr.reset();
+    std::cout << "ptr use count after lock: " << ptr.use_count() << std::endl;
+    std::cout << "Weak pointer use count: " << weakPtr.use_count() << std::endl;
 
 }

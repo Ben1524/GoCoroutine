@@ -4,6 +4,7 @@
 
 #ifndef UTILS_H
 #define UTILS_H
+#include <atomic>
 
 # define ALWAYS_INLINE __attribute__ ((always_inline)) inline  /// 强制内联宏定义
 template <typename T>

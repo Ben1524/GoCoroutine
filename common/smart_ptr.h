@@ -736,6 +736,11 @@ AddRef(T *ptr)
         ptr->AddRef(); /**< 增加引用计数 */
     }
 }
+template <typename T>
+typename std::enable_if<!std::is_base_of<RefObject, T>::value>::type
+DecrementRef(T * ptr)
+{
+}
 
 /**
  * @brief 辅助函数：统一减少引用计数接口（支持模板特化）

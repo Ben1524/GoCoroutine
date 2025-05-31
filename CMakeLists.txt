@@ -28,9 +28,11 @@ target_include_directories(project_headers
         ${CMAKE_SOURCE_DIR}/concurrence
 )
 
+find_package(unofficial-concurrentqueue CONFIG REQUIRED)
 # 依赖项配置
 find_package(Threads REQUIRED)
 find_package(spdlog REQUIRED)
+
 
 # GTest配置
 if(USE_EXTERNAL_GTEST)
@@ -71,6 +73,7 @@ target_link_libraries(gocoroutine_lib
         project_headers
         Threads::Threads
         spdlog::spdlog
+        unofficial::concurrentqueue::concurrentqueue
 )
 
 # 主可执行文件配置
@@ -92,6 +95,7 @@ if(BUILD_TESTS)
             test/test_error.cpp
             test/test_lfrqueue.cpp
             test/test_smartptr.cpp
+            test/test_tsqueue.cpp
     )
 
     # 为每个测试文件创建单独的测试目标
@@ -100,7 +104,8 @@ if(BUILD_TESTS)
         get_filename_component(test_name ${test_source} NAME_WE)
 
         # 创建测试可执行文件
-        add_executable(${test_name} ${test_source})
+        add_executable(${test_name} ${test_source}
+               )
 
         # 链接必要的库
         target_link_libraries(${test_name}
@@ -110,6 +115,7 @@ if(BUILD_TESTS)
                 GTest::gtest_main
                 GTest::gmock
                 GTest::gmock_main
+                unofficial::concurrentqueue::concurrentqueue
         )
 
         # 将测试添加到CTest
