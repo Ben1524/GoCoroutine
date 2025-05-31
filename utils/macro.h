@@ -16,4 +16,14 @@
 #endif
 
 
+
+#if defined(LIBGO_SYS_Windows)
+# define FCONTEXT_CALL __stdcall
+#else
+# define FCONTEXT_CALL
+#endif
+
+
+# define ALWAYS_INLINE __attribute__ ((always_inline)) inline  /// 强制内联宏定义
+
 #endif ///MACRO_H

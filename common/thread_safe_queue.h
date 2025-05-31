@@ -4,7 +4,6 @@
 
 #ifndef GOCOROUTINE_THREAD_SAFE_QUEUE_H
 #define GOCOROUTINE_THREAD_SAFE_QUEUE_H
-
 #pragma once
 #include <utils/utils.h>
 #include <cassert>

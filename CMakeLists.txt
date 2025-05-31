@@ -66,6 +66,10 @@ add_library(gocoroutine_lib STATIC
         common/lock_free_ring_queue.h
         common/thread_safe_queue.h
         common/smart_ptr.h
+        context/context.h
+        utils/types.h
+        context/fcontext.cpp
+        context/fcontext.h
 )
 
 target_link_libraries(gocoroutine_lib
@@ -105,7 +109,8 @@ if(BUILD_TESTS)
 
         # 创建测试可执行文件
         add_executable(${test_name} ${test_source}
-               )
+
+        )
 
         # 链接必要的库
         target_link_libraries(${test_name}
