@@ -26,4 +26,11 @@
 
 # define ALWAYS_INLINE __attribute__ ((always_inline)) inline  /// 强制内联宏定义
 
+
+/*
+ * 日志级别宏定义，并发调试宏定义
+ */
+#define LIBGO_DEBUG 0
+#define DEBUG_ROUTINE_SYNC_IN_LIBGO 1
+
 #endif ///MACRO_H

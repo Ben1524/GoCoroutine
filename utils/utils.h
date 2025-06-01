@@ -5,6 +5,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <utils/macro.h>
+#include <utils/types.h>
 
 
 

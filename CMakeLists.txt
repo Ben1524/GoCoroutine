@@ -70,6 +70,14 @@ add_library(gocoroutine_lib STATIC
         utils/types.h
         context/fcontext.cpp
         context/fcontext.h
+        task/task.cpp
+        task/task.h
+        debug/debugger.cpp
+        debug/debugger.h
+        concurrence/channel.h
+        concurrence/debug.h
+        concurrence/rutex.h
+        concurrence/linked_list.h
 )
 
 target_link_libraries(gocoroutine_lib
@@ -109,7 +117,7 @@ if(BUILD_TESTS)
 
         # 创建测试可执行文件
         add_executable(${test_name} ${test_source}
-
+                concurrence/switcher.h
         )
 
         # 链接必要的库
